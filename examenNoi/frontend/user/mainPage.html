@@ -1,0 +1,89 @@
+<html>
+<head>
+    
+    <title> User home page </title>
+    <script src="../user/mainPage.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+   
+    <div class="Chenar " style="display: flex; justify-content: center; flex-direction: column;">
+        <select id="options">
+            <option value="0" disabled selected>Select your option</option>
+        </select>
+        <br>
+     <table>
+        <thead id="tableHeadOption">
+        </thead>
+        <tbody id="objectsForUserOption" >
+        </tbody>
+    </table>
+
+<br>
+    <!-- <div>
+        <h1> Update a Post!</h1>
+        <label>PostId: </label> <br>
+        <input id="postId"  name= "postId"  placeholder="Type postId name here..." required>
+        <br>
+        <br>
+
+        <label>Text: </label> <br>
+        <input id="textId"  name= "textId"  placeholder="Type text name here..." required>
+        
+        
+        <br>
+        <button type="button" onclick="updateObject()"> Update! </button>
+        
+    </div> -->
+
+    <!-- <div>
+        <h1> Add a Post to a Topic!</h1>
+        
+
+        <label>Text: </label> <br>
+        <input id="textIdAdd"  name= "textId"  placeholder="Type text name here..." required>
+        <br>
+        <br>
+
+        <label>TopicName: </label> <br>
+        <input id="topicName"  name= "topicId"  placeholder="Type topicname here..." required>
+        
+      
+
+        <br>
+        <button type="button" onclick="addObject()"> Add! </button>
+        
+    </div> -->
+
+    
+    <input type="text" id="myInput" oninput="getObjectsForUser()">
+
+ 
+
+    <div class="Chenar " style="display: flex; justify-content: center; flex-direction: column;">
+       
+        <br>
+     <table>
+        <thead id="tableHead">
+        </thead>
+        <tbody id="objectsForUser" >
+
+           
+        </tbody>
+    </table>
+      
+
+        
+        
+    
+
+    <div>
+        <!-- <button (click)="dicrementPage()" id="prevButton">Previous</button>
+        <button (click)="incrementPage()" id="nextButton">Next</button> -->
+    </div>
+    <br>
+   
+
+
