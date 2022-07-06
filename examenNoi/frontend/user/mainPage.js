@@ -1,3 +1,6 @@
+
+// GET THE ACTUAL USERNAME 
+
 function getUsername() {
     let name="username=";
     let cookie = decodeURIComponent(document.cookie);
@@ -11,6 +14,45 @@ function getUsername() {
     return "";
   }
 
+// ----------------------------------------------------
+// DISPLAY PAGINATED 
+
+async function displayPaginated(objectName, page) {
+    var table = document.getElementById("displayPaginated");
+    table.innerHTML = "";
+    var data = await fetch(`../../backend/displayPaginated.php?name=${objectName}&page=${page}`, {
+        method: "GET"
+    }).then(function(response){
+        console.log("search successful");
+        return response.json();
+    }).catch( function(error) {
+        console.log(error);
+    });
+
+
+   
+    for (i = 0; i < data.length; i++) {
+        createRowTeam(data[i]);
+    }
+    // checkButtons();
+}
+
+let page = 0;
+
+function nextPage(){
+    page+=1;
+    var name =getUsername();
+    displayPaginated(name, page);  
+}
+
+function prevPage(){
+    page-=1;
+    var name =getUsername();
+    displayPaginated(name, page);
+}
+displayPaginated(getUsername(), page);
+
+// ------------------------------------------------------
 
   // POPULATE OPTION
 
@@ -40,7 +82,7 @@ getObjectsToChooseFrom();
 
   objectsByOption="";
   page: number=0;
-  function changeOption(e){
+function changeOption(e){
     this.option=e.target.value;
     if (this.option==""){
       this.objectsByOption=[];
@@ -54,9 +96,9 @@ getObjectsToChooseFrom();
     }
     
   }
-//
 
-//  DISPLAY TABLE
+
+//  DISPLAY TABLE AFTER OPTION
 
 async function getObjectsForUserOption(option) {
    
@@ -75,69 +117,9 @@ async function getObjectsForUserOption(option) {
 
 document.getElementById("options").addEventListener('change', changeOption);
 
-// 
+// ---------------------------------------------
 
-async function updateObject() {
-    var postId = document.getElementById("postId").value;
-    var text = document.getElementById("textId").value;
-    var user= getUsername();
-   
-   
-    var date= new Date();
-    var dateString = "yyyy-mm-dd".replace("yyyy", date.getFullYear()).replace("mm", date.getMonth()+1).replace("dd", date.getDate());
-    var data_to_send = {
-        "postId": postId,
-        "user": user,
-        "text": text,
-        "date": dateString
-    };
-
-    var response = await fetch("../../backend/updateObject.php", {
-        method: "POST",
-        body: JSON.stringify(data_to_send)
-    });
-    if (response.status == 200) {
-        console.log("update successful");
-        console.log(response.text());
-       
-    }
-    else {
-        console.log("update failed");
-    }
-}
-
-
-async function addObject() {
-    
-    var topicName = document.getElementById("topicName").value;
-    var text = document.getElementById("textIdAdd").value;
-    var user= getUsername();
-
-   
-   
-    var date= new Date();
-    var dateString = "yyyy-mm-dd".replace("yyyy", date.getFullYear()).replace("mm", date.getMonth()+1).replace("dd", date.getDate());
-    var data_to_send = {
-       
-        "topicName": topicName,
-        "user": user,
-        "text": text,
-        "date": dateString
-    };
-
-    var response = await fetch("../../backend/addObject.php", {
-        method: "POST",
-        body: JSON.stringify(data_to_send)
-    });
-    if (response.status == 200) {
-        console.log("add successful");
-        console.log(response.text());
-       
-    }
-    else {
-        console.log("add failed");
-    }
-}
+// SEARCH OBJECT FOR INSTANT SERACH
 
 async function searchObject() {
 
@@ -161,9 +143,130 @@ async function searchObject() {
 
 
 }
+//  DISPLAY TABLE FOR INSTANT SEARCH
+async function getObjectsForUser() {
+   
+    var table = document.getElementById("objectsForUser");
+    table.innerHTML = "";
+
+    var data= await sortObjects();
+    console.log(data);
 
 
+    document.getElementById("tableHead").innerHTML="<th> Id </th><th> Name </th> <th> Position </th>"
+    for (i = 0; i < data.length; i++) {
+        createRow(data[i]);
+    }
+    
+}
+
+// SORT ARRAY
+
+async function sortObjects() {
+   
+   
+    var data= await searchObject();
+    for (i = 0; i < data.length; i++)
+    {
+        for (j=i+1;j<data.length;j++) 
+    
+        if (data[i]["name"]> data[j]["name"]) { a= data[i]; data[i]=data[j]; data[j]=a;}
+    }
+    return data;
+    
+}
+
+// ---------------------------------------------------
+// UPDATE OBJECT
+
+async function updateObject() {
+    var playerName = document.getElementById("playerName").value;
+    // var date= new Date();
+    // var dateString = "yyyy-mm-dd".replace("yyyy", date.getFullYear()).replace("mm", date.getMonth()+1).replace("dd", date.getDate());
+     var data_to_send = {
+        "playerName": playerName,
+        "position": position,   
+    };
+
+    var response = await fetch("../../backend/updateObject.php", {
+        method: "POST",
+        body: JSON.stringify(data_to_send)
+    });
+    if (response.status == 200) {
+        console.log("update successful");
+        alert("update successful");
+        console.log(response.text());
+       
+    }
+    else {
+        console.log("update failed");
+    }
+}
+
+// ---------------------------------------------------
+// UPDATE OBJECT SCHEDULE
+
+async function updateObject2() {
+    var scheduleId = document.getElementById("scheduleId").value;
+    var date= new Date();
+    var username=getUsername();
+    var dateString = "yyyy-mm-dd".replace("yyyy", date.getFullYear()).replace("mm", date.getMonth()+1).replace("dd", date.getDate());
+     var data_to_send = {
+        "scheduleId": scheduleId,
+        "date": dateString,
+        "username": username,
+
+    };
+
+    var response = await fetch("../../backend/updateObject2.php", {
+        method: "POST",
+        body: JSON.stringify(data_to_send)
+    });
+    if (response.status == 200) {
+        console.log("update successful");
+        alert("update successful");
+        console.log(response.text());
+       
+    }
+    else {
+        console.log("update failed");
+    }
+}
+// ---------------------------------------------------------
+//  ADD OBJECT 
+
+async function addObject() {
+    
+    var player1 = document.getElementById("player1").value;
+    var player2 = document.getElementById("player2").value;
+    var teamName = document.getElementById("teamName").value;
+    // var date= new Date();
+    // var dateString = "yyyy-mm-dd".replace("yyyy", date.getFullYear()).replace("mm", date.getMonth()+1).replace("dd", date.getDate());
+    var data_to_send = {
+       
+        "player1": player1,
+        "player2": player2,
+        "teamName": teamName,
+        // "date": dateString
+    };
+
+    var response = await fetch("../../backend/addObject.php", {
+        method: "POST",
+        body: JSON.stringify(data_to_send)
+    });
+    if (response.status == 200) {
+        console.log("add successful");
+        console.log(response.text());    
+    }
+    else {
+        console.log("add failed");
+    }
+}
+
+
+// ----------------------------------------
 // ----------  CREATE TABLE
+
 function createCell(parentRow, textVal) {
     var tag = document.createElement("td");
     text = document.createTextNode(textVal);
@@ -197,39 +300,19 @@ function createRow(object) {
     createCell(row, object.position);  
     table.appendChild(row);
 }
-//
-// ---------------- DISPLAY TABLE
-async function getObjectsForUser() {
-   
-    var table = document.getElementById("objectsForUser");
-    table.innerHTML = "";
 
-    var data= await sortObjects();
-    console.log(data);
-
-
-    document.getElementById("tableHead").innerHTML="<th> Id </th><th> Name </th> <th> Position </th>"
-    for (i = 0; i < data.length; i++) {
-        createRow(data[i]);
-    }
-    
+function createRowTeam(object) {
+    var table = document.getElementById("displayPaginated");
+    var row = document.createElement("tr");
+    createCell(row, object.id);
+    createCell(row, object.name);
+    createCell(row, object.homeCity);  
+    table.appendChild(row);
 }
 
-// sort objects
 
-async function sortObjects() {
-   
-   
-    var data= await searchObject();
-    for (i = 0; i < data.length; i++)
-    {
-        for (j=i+1;j<data.length;j++) 
-    
-        if (data[i]["name"]> data[j]["name"]) { a= data[i]; data[i]=data[j]; data[j]=a;}
-    }
-    return data;
-    
-}
+// ----------------------------------------------
+// DETELE OBJECT
 
 async function deleteObject(id){
 
@@ -250,3 +333,4 @@ async function deleteObject(id){
     return response;
 
 }
+//------------------------------------------------------------------

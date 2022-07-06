@@ -6,84 +6,127 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
+
 <body>
 
-   
-    <div class="Chenar " style="display: flex; justify-content: center; flex-direction: column;">
+<br><br>
+ <!-- DISPLAY OBJECTS PAGINATED FOR USER -->
+    <h1> DISPLAY OBJECTS PAGINATED FOR USER</h1>
+    <div>
+        <table>
+
+            <thead>
+                <th> TeamId </th>
+                <th> Name </th>
+                <th> HomeCity </th>
+            </thead>
+
+            <tbody id="displayPaginated">
+            </tbody>
+
+        </table>
+
+        <div>
+            <button onClick="prevPage()" id="prevButton">Previous</button>
+            <button onclick="nextPage()" id="nextButton">Next</button>
+        </div>
+    </div>
+
+
+
+<!-- DISPLAY OBJECTS BY SELECTING AN OPTION -->
+    <h1>DISPLAY OBJECTS BY SELECTING AN OPTION</h1>
+    <div  style="display: flex; justify-content: center; flex-direction: column;">
+
         <select id="options">
             <option value="0" disabled selected>Select your option</option>
-        </select>
-        <br>
-     <table>
-        <thead id="tableHeadOption">
-        </thead>
-        <tbody id="objectsForUserOption" >
-        </tbody>
-    </table>
+        </select> <br>
+       
+        <table>
 
-<br>
-    <!-- <div>
-        <h1> Update a Post!</h1>
-        <label>PostId: </label> <br>
-        <input id="postId"  name= "postId"  placeholder="Type postId name here..." required>
-        <br>
-        <br>
+            <thead id="tableHeadOption">
+            </thead>
 
-        <label>Text: </label> <br>
-        <input id="textId"  name= "textId"  placeholder="Type text name here..." required>
+            <tbody id="objectsForUserOption" >
+            </tbody>
+
+        </table>
         
-        
-        <br>
-        <button type="button" onclick="updateObject()"> Update! </button>
-        
-    </div> -->
+    </div>
 
-    <!-- <div>
-        <h1> Add a Post to a Topic!</h1>
-        
-
-        <label>Text: </label> <br>
-        <input id="textIdAdd"  name= "textId"  placeholder="Type text name here..." required>
-        <br>
-        <br>
-
-        <label>TopicName: </label> <br>
-        <input id="topicName"  name= "topicId"  placeholder="Type topicname here..." required>
-        
-      
-
-        <br>
-        <button type="button" onclick="addObject()"> Add! </button>
-        
-    </div> -->
-
-    
+<!-- SEARCH INSTANT -->
+    <h1>INSTANT SEARCH</h1>
     <input type="text" id="myInput" oninput="getObjectsForUser()">
 
- 
+    <div style="display: flex; justify-content: center; flex-direction: column;"><br>
+        <table>
 
-    <div class="Chenar " style="display: flex; justify-content: center; flex-direction: column;">
+            <thead id="tableHead">
+            </thead>
+
+            <tbody id="objectsForUser" >
+            </tbody>
+
+        </table><br>
+    </div> <br>
+
+
+<!-- UPDATE A PLAYER WITH NEW POSITION -->
+    <h1>UPDATE A PLAYER WITH NEW POSITION</h1>
+    <div>
        
-        <br>
-     <table>
-        <thead id="tableHead">
-        </thead>
-        <tbody id="objectsForUser" >
 
-           
-        </tbody>
-    </table>
-      
+        <label>Player name: </label> <br>
+        <input id="playerName"  name= "playerName"  placeholder="Type playerName name here..." required>  <br><br>
 
+        <label>Position: </label> <br>
+        <input id="positionId"  name= "positionId"  placeholder="Type position name here..." required><br>
+
+        <button type="button" onclick="updateObject()"> Update! </button>
+        
+    </div><br><br>
+
+<!-- UPDATE WITH APPEND -->
+<h1>UPDATE A PLAYER WITH NEW POSITION</h1>
+    <div>
+       
+
+        <label>Schedule id: </label> <br>
+        <input id="scheduleId"  name= "scheduleId"  placeholder="Type scheduleId name here..." required>  <br><br>
+
+        
+
+        <button type="button" onclick="updateObject2()"> Update! </button>
+        
+    </div><br><br>
+
+<!-- ADD AN OBJECT -->
+
+    <div>
+        <h1> ADD AN OBJECT</h1>
+        
+
+        <label>Name for player1: </label> <br>
+        <input id="player1"  name= "player1"  placeholder="Type text name here..." required><br>
+
+
+        <label>Name for player2: </label> <br>
+        <input id="player2"  name= "player2"  placeholder="Type text name  here..." required> <br>
+        
+        <label>Name for team: </label> <br>
+        <input id="teamName"  name= "teamName"  placeholder="Type text name  here..." required><br>
+        
+    
+        <button type="button" onclick="addObject()"> Add! </button><br><br>
+    </div>
+
+
+   
+</body>
         
         
     
 
-    <div>
-        <!-- <button (click)="dicrementPage()" id="prevButton">Previous</button>
-        <button (click)="incrementPage()" id="nextButton">Next</button> -->
-    </div>
-    <br>
-   
+
 
 
